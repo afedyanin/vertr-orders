@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Vertr.Orders.Application\Vertr.Orders.Application.csproj" />
+    <ProjectReference Include="..\Vertr.Orders.Client\Vertr.Orders.Client.csproj" />
+    <ProjectReference Include="..\Vertr.Orders.Infrastructure.Tproxy\Vertr.Orders.Infrastructure.Tproxy.csproj" />
+  </ItemGroup>
+
 </Project>
