@@ -23,4 +23,10 @@ internal sealed class OrdersRepository : IOrdersRepository
         _context.OrderResponses.Add(orderResponse);
         await _context.SaveChangesAsync();
     }
+
+    public async Task SaveOrderTrade(OrderTrade orderTrade)
+    {
+        _context.OrderTrades.Add(orderTrade);
+        await _context.SaveChangesAsync();
+    }
 }

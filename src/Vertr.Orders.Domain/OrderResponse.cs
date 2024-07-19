@@ -1,7 +1,9 @@
 namespace Vertr.Orders.Domain;
 public class OrderResponse
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } // TrackingId
+
+    public Guid OrderId { get; set; }
 
     public Guid OrderRequestId { get; set; }
 
@@ -16,4 +18,6 @@ public class OrderResponse
     public string CommissionCurrency { get; set; } = string.Empty;
 
     public string Message { get; set; } = string.Empty;
+
+    public DateTime ServerTime { get; set; }
 }

@@ -5,4 +5,6 @@ public interface IOrdersRepository
     Task SaveOrderRequest(OrderRequest orderRequest);
 
     Task SaveOrderResponse(OrderResponse orderResponse);
+
+    Task SaveOrderTrade(OrderTrade orderTrade);
 }
