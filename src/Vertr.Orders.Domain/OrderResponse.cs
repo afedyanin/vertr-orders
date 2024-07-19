@@ -1,9 +1,9 @@
 namespace Vertr.Orders.Domain;
 public class OrderResponse
 {
-    public Guid OrderRequestId { get; set; }
+    public Guid Id { get; set; }
 
-    public string OrderId { get; set; } = string.Empty;
+    public Guid OrderRequestId { get; set; }
 
     public OrderExecutionStatus Status { get; set; }
 

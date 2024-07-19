@@ -8,7 +8,7 @@ internal static class PostOrderResponseConverter
     public static OrderResponse Convert(this PostOrderResponse response)
         => new OrderResponse
         {
-            OrderId = response.OrderId,
+            Id = new Guid(response.OrderId),
             OrderRequestId = new Guid(response.OrderRequestId),
             Status = (Domain.OrderExecutionStatus)response.Status,
             LotsExecuted = response.LotsExecuted,
