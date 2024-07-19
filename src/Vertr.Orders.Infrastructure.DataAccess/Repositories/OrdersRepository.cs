@@ -5,13 +5,22 @@ namespace Vertr.Orders.Infrastructure.DataAccess.Repositories;
 
 internal sealed class OrdersRepository : IOrdersRepository
 {
-    public Task SaveOrderRequest(OrderRequest orderRequest)
+    private readonly OrdersContext _context;
+
+    public OrdersRepository(OrdersContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public Task SaveOrderResponse(OrderResponse orderResponse)
+    public async Task SaveOrderRequest(OrderRequest orderRequest)
     {
-        throw new NotImplementedException();
+        _context.OrderRequests.Add(orderRequest);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task SaveOrderResponse(OrderResponse orderResponse)
+    {
+        _context.OrderResponses.Add(orderResponse);
+        await _context.SaveChangesAsync();
     }
 }

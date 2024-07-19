@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Vertr.Orders.Application;
 using Vertr.Orders.Infrastructure.DataAccess;
 using Vertr.Orders.Infrastructure.TproxyConnector;
@@ -12,7 +13,11 @@ public class Program
 
         builder.Services.AddAppMediator();
         builder.Services.AddTpoxy(new Uri("http://localhost:5100"));
-        builder.Services.AddDataAccess();
+
+        builder.Services.AddDataAccess(options =>
+        {
+            options.UseNpgsql(builder.Configuration.GetConnectionString("OrdersContext"));
+        });
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
