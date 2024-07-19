@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Vertr.Infrastructure.Kafka;
 using Vertr.Orders.Application;
 using Vertr.Orders.Infrastructure.DataAccess;
 using Vertr.Orders.Infrastructure.TproxyConnector;
@@ -13,6 +14,9 @@ public class Program
 
         builder.Services.AddAppMediator();
         builder.Services.AddTpoxy(new Uri("http://localhost:5100"));
+        builder.Services.AddOptions<KafkaSettings>().BindConfiguration("KafkaSettings");
+        builder.Services.AddKafkaSettings(settings => builder.Configuration.Bind("KafkaSettings", settings));
+        builder.Services.AddOrderTradesConsumer();
 
         builder.Services.AddDataAccess(options =>
         {

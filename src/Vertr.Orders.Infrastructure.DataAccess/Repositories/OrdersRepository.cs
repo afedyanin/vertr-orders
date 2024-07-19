@@ -26,7 +26,15 @@ internal sealed class OrdersRepository : IOrdersRepository
 
     public async Task SaveOrderTrade(OrderTrade orderTrade)
     {
-        _context.OrderTrades.Add(orderTrade);
-        await _context.SaveChangesAsync();
+        try
+        {
+            await _context.OrderTrades.AddAsync(orderTrade);
+            await _context.SaveChangesAsync();
+        }
+        // Check PK constrain exception. log exception
+        catch (Exception)
+        {
+
+        }
     }
 }
