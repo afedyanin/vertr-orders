@@ -35,11 +35,11 @@ internal sealed class StaticDataService : IStaticDataService
         }
 
         var res = _shares.Where(
-            s => s.Isin.Contains(keyword, StringComparison.CurrentCultureIgnoreCase)
-            || s.ClassCodeTicker.Contains(keyword, StringComparison.CurrentCultureIgnoreCase)
+            s => s.Isin.Equals(keyword, StringComparison.CurrentCultureIgnoreCase)
+            || s.ClassCodeTicker.Equals(keyword, StringComparison.CurrentCultureIgnoreCase)
+            || s.Uid.Equals(keyword, StringComparison.CurrentCultureIgnoreCase)
             || s.Ticker.Contains(keyword, StringComparison.CurrentCultureIgnoreCase)
             || s.ClassCode.Contains(keyword, StringComparison.CurrentCultureIgnoreCase)
-            || s.Uid.Contains(keyword, StringComparison.CurrentCultureIgnoreCase)
             || s.Name.Contains(keyword, StringComparison.CurrentCultureIgnoreCase));
 
         return res.ToArray();
