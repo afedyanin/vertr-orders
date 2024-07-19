@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34916.146
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{8B47595F-FABF-47BE-80FC-AC1A31450394}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitlab-ci.yml = .gitlab-ci.yml
+		CHANGELOG = CHANGELOG
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7E04BE77-B307-481C-BD07-60C9F4FC3FD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{885DE0C2-B9FE-4647-AEEB-882C88D84AB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vertr.Orders.Server", "src\Vertr.Orders.Server\Vertr.Orders.Server.csproj", "{94278749-FE57-4633-94C2-CA123AE41104}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94278749-FE57-4633-94C2-CA123AE41104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94278749-FE57-4633-94C2-CA123AE41104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94278749-FE57-4633-94C2-CA123AE41104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94278749-FE57-4633-94C2-CA123AE41104}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{94278749-FE57-4633-94C2-CA123AE41104} = {7E04BE77-B307-481C-BD07-60C9F4FC3FD2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AAB7901-EB6E-4F04-B176-F64FCFC74E4D}
+	EndGlobalSection
+EndGlobal
