@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Vertr.Orders.Application.Orders;
@@ -16,18 +17,18 @@ public class OrdersController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost("{portfolioId:guid}/{classcodeTicker}")]
+    [HttpPost("{portfolioId:guid}")]
     public async Task<ActionResult<OrderResponse>> Post(
-        Guid portfolioId,
-        string classcodeTicker,
-        decimal price,
-        long lots,
+        [Required] Guid portfolioId,
+        [Required] string classcodeTicker,
+        decimal price = 0M,
+        long lots = 1,
         CancellationToken cancellationToken = default)
     {
         var orderRequest = new PostOrderRequest(portfolioId, classcodeTicker, price, lots);
+        var result = await _mediator.Send(orderRequest, cancellationToken);
+        var orderResponse = result.Response;
 
-        var response = await _mediator.Send(orderRequest, cancellationToken);
-
-        return Ok(response);
+        return Ok(orderResponse);
     }
 }

@@ -1,4 +1,5 @@
 using Vertr.Orders.Application;
+using Vertr.Orders.Infrastructure.DataAccess;
 using Vertr.Orders.Infrastructure.TproxyConnector;
 
 namespace Vertr.Orders.Server;
@@ -11,6 +12,7 @@ public class Program
 
         builder.Services.AddAppMediator();
         builder.Services.AddTpoxy(new Uri("http://localhost:5100"));
+        builder.Services.AddDataAccess();
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();

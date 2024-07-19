@@ -21,18 +21,22 @@ internal sealed class OrderExecutionService : IOrderExecutionService
         _logger = logger;
     }
 
-    public async Task<ExecuteOrderResult> ExecuteOrder(ExecuteOrderCommand command, CancellationToken cancellationToken)
+    public async Task<OrderResponse> ExecuteOrder(OrderRequest request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation($"Start executing order. OrderId={command.OrderId}");
+        _logger.LogInformation($"Posting order. Id={request.Id}");
 
-        var request = new PostOrderRequest(command.InstrumentId, command.OrderId, command.Lots, command.Price);
+        var postOrderRequest = new PostOrderRequest(
+            request.InstrumentId,
+            request.Id,
+            request.Lots,
+            request.Price);
 
-        var response = await _tproxyApi.PostOrder(request);
+        var response = await _tproxyApi.PostOrder(postOrderRequest);
 
-        var result = response.Convert();
+        var orderResponse = response.Convert();
 
-        _logger.LogInformation($"Execute order result: {result}");
+        _logger.LogInformation($"Order response: {orderResponse}");
 
-        return result;
+        return orderResponse;
     }
 }

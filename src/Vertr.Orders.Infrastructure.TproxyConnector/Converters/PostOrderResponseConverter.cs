@@ -5,16 +5,16 @@ namespace Vertr.Orders.Infrastructure.TproxyConnector.Converters;
 
 internal static class PostOrderResponseConverter
 {
-    public static ExecuteOrderResult Convert(this PostOrderResponse response)
-        => new ExecuteOrderResult(
-            response.OrderRequestId,
-            response.OrderId,
-            response.InstrumentUid,
-            (Domain.OrderExecutionStatus)response.Status,
-            response.LotsRequested,
-            response.LotsExecuted,
-            response.ExecutedCommission.Value,
-            response.ExecutedCommission.Currency,
-            response.Message
-            );
+    public static OrderResponse Convert(this PostOrderResponse response)
+        => new OrderResponse
+        {
+            OrderId = response.OrderId,
+            OrderRequestId = new Guid(response.OrderRequestId),
+            Status = (Domain.OrderExecutionStatus)response.Status,
+            LotsExecuted = response.LotsExecuted,
+            LotsRequested = response.LotsRequested,
+            CommissionValue = response.ExecutedCommission.Value,
+            CommissionCurrency = response.ExecutedCommission.Currency,
+            Message = response.Message,
+        };
 }
