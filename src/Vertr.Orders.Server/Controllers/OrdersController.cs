@@ -16,15 +16,15 @@ public class OrdersController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost("{portfolioId:guid}/{instrumentId}")]
+    [HttpPost("{portfolioId:guid}/{classcodeTicker}")]
     public async Task<ActionResult<OrderResponse>> Post(
         Guid portfolioId,
-        string instrumentId,
+        string classcodeTicker,
         decimal price,
-        decimal qty,
+        long lots,
         CancellationToken cancellationToken = default)
     {
-        var orderRequest = new PostOrderRequest(portfolioId, instrumentId, price, qty);
+        var orderRequest = new PostOrderRequest(portfolioId, classcodeTicker, price, lots);
 
         var response = await _mediator.Send(orderRequest, cancellationToken);
 

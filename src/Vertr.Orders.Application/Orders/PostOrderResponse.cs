@@ -1,8 +1,5 @@
-using Vertr.Orders.Client;
+using Vertr.Orders.Domain;
 
 namespace Vertr.Orders.Application.Orders;
 
-public class PostOrderResponse
-{
-    public OrderResponse? Response { get; set; }
-}
+public record class PostOrderResponse(ExecuteOrderResult? Result);
