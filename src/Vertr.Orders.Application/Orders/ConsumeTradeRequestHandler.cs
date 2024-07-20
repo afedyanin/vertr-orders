@@ -4,7 +4,7 @@ using Vertr.Orders.Domain.Repositories;
 
 namespace Vertr.Orders.Application.Orders;
 
-internal sealed class ConsumeTradeRequestHandler : IRequestHandler<ConsumeTradeRequest, ConsumeTradeResponse>
+internal sealed class ConsumeTradeRequestHandler : IRequestHandler<ConsumeTradeRequest>
 {
     private readonly IOrdersRepository _ordersRepository;
     private readonly ILogger<ConsumeTradeRequestHandler> _logger;
@@ -18,14 +18,11 @@ internal sealed class ConsumeTradeRequestHandler : IRequestHandler<ConsumeTradeR
         _logger = logger;
     }
 
-    public async Task<ConsumeTradeResponse> Handle(ConsumeTradeRequest request, CancellationToken cancellationToken)
+    public async Task Handle(ConsumeTradeRequest request, CancellationToken cancellationToken)
     {
+        await _ordersRepository.SaveOrderTrade(request.Trade);
         // TODO: send notification to portfolio
-        var trade = request.OrderTrade!;
-        await _ordersRepository.SaveOrderTrade(trade);
 
-        _logger.LogDebug($"Order trade saved. Id={trade.Id}");
-
-        return new ConsumeTradeResponse();
+        _logger.LogDebug($"Order trade saved. Id={request.Trade.Id}");
     }
 }

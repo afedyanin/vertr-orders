@@ -3,7 +3,6 @@ using Vertr.Orders.Domain;
 
 namespace Vertr.Orders.Application.Orders;
 
-public class ConsumeTradeRequest : IRequest<ConsumeTradeResponse>
+public record class ConsumeTradeRequest(OrderTrade Trade) : IRequest
 {
-    public OrderTrade? OrderTrade { get; set; }
 }

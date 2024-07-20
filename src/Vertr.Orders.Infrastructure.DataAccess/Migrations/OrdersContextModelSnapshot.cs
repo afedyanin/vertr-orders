@@ -95,9 +95,17 @@ namespace Vertr.Orders.Infrastructure.DataAccess.Migrations
                         .HasColumnType("text")
                         .HasColumnName("message");
 
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("order_id");
+
                     b.Property<Guid>("OrderRequestId")
                         .HasColumnType("uuid")
                         .HasColumnName("order_request_id");
+
+                    b.Property<DateTime>("ServerTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("server_time");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer")
@@ -107,6 +115,35 @@ namespace Vertr.Orders.Infrastructure.DataAccess.Migrations
                         .HasName("pk_order_responses");
 
                     b.ToTable("order_responses", (string)null);
+                });
+
+            modelBuilder.Entity("Vertr.Orders.Domain.OrderTrade", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("order_id");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric")
+                        .HasColumnName("price");
+
+                    b.Property<long>("Qty")
+                        .HasColumnType("bigint")
+                        .HasColumnName("qty");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("timestamp");
+
+                    b.HasKey("Id")
+                        .HasName("pk_order_trades");
+
+                    b.ToTable("order_trades", (string)null);
                 });
 #pragma warning restore 612, 618
         }

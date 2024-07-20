@@ -17,6 +17,8 @@ internal sealed class OrderTradesConsumerService : BackgroundService
     private readonly IServiceProvider _services;
     private readonly ILogger<OrderTradesConsumerService> _logger;
 
+    private readonly HashSet<Guid> _processedTrades;
+
     private readonly string _orderTradesTopic;
 
     public OrderTradesConsumerService(
@@ -28,6 +30,7 @@ internal sealed class OrderTradesConsumerService : BackgroundService
         _services = serviceProvider;
         _logger = logger;
         var topics = kafkaSettings.Value.Topics;
+        _processedTrades = [];
 
         topics.TryGetValue(OorderTradesTopicKey, out var orderTradesTopic);
         _orderTradesTopic = orderTradesTopic ?? throw new ArgumentException("Order trades topic is not defined.");
@@ -56,18 +59,19 @@ internal sealed class OrderTradesConsumerService : BackgroundService
 
     private async Task Handle(ConsumeResult<string, Tproxy.Client.Orders.OrderTrade> result, CancellationToken cancellationToken)
     {
-        var mediator = _services.GetRequiredService<IMediator>();
-
         var trade = result.Message.Value.Convert();
 
-        // TODO: Filter dublicates here.
-        var request = new ConsumeTradeRequest
+        if (_processedTrades.Contains(trade.Id))
         {
-            OrderTrade = trade
-        };
+            _logger.LogDebug($"Order Trade with Id={trade.Id} is alreay processed. Skipping...");
+            return;
+        }
 
-        var res = await mediator.Send(request);
-        // TODO: Handle result
+        var mediator = _services.GetRequiredService<IMediator>();
+        await mediator.Send(new ConsumeTradeRequest(trade));
+
+        // TODO: Cleanaup processed trades - use MemoryCache
+        _processedTrades.Add(trade.Id);
     }
 
     public override async Task StopAsync(CancellationToken stoppingToken)

@@ -34,17 +34,34 @@ namespace Vertr.Orders.Infrastructure.DataAccess.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
+                    order_id = table.Column<Guid>(type: "uuid", nullable: false),
                     order_request_id = table.Column<Guid>(type: "uuid", nullable: false),
                     status = table.Column<int>(type: "integer", nullable: false),
                     lots_requested = table.Column<long>(type: "bigint", nullable: false),
                     lots_executed = table.Column<long>(type: "bigint", nullable: false),
                     commission_value = table.Column<decimal>(type: "numeric", nullable: false),
                     commission_currency = table.Column<string>(type: "text", nullable: false),
-                    message = table.Column<string>(type: "text", nullable: false)
+                    message = table.Column<string>(type: "text", nullable: false),
+                    server_time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_order_responses", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "order_trades",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    order_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    price = table.Column<decimal>(type: "numeric", nullable: false),
+                    qty = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_order_trades", x => x.id);
                 });
         }
 
@@ -56,6 +73,9 @@ namespace Vertr.Orders.Infrastructure.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "order_responses");
+
+            migrationBuilder.DropTable(
+                name: "order_trades");
         }
     }
 }
