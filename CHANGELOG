@@ -1,16 +1,21 @@
+# 2024-07-20
+
+ToDo
+- send trades to portfolio
+- api client
+- new proj - strategy
+- docker for app
+
 # 2024-07-19
 
 start project
 
 ToDo
-
 - DAL: Orders, Trades
 - Trades Consumer from Tproxy
 - Portfolio Client
 - Portfolio Trades producer
 
-- new proj - strategy
-- docker for app
 
 
 
